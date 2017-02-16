@@ -23,5 +23,5 @@ public class Connection {
     public double getRawTime() {
         return rawTime;
     }
-    
+
 }
