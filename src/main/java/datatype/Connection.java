@@ -24,4 +24,6 @@ public class Connection {
         return rawTime;
     }
 
+    //Test comment
+
 }
