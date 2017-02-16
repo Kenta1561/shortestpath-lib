@@ -1,7 +1,21 @@
 package main.java.datatype;
 
-/**
- * Created by kenta on 16.02.2017.
- */
 public class Path {
+
+    private final Line line;
+    private final Node to;
+
+    public Path(Line line, Node to) {
+        this.line = line;
+        this.to = to;
+    }
+
+    public Line getLine() {
+        return line;
+    }
+
+    public Node getTo() {
+        return to;
+    }
+
 }
