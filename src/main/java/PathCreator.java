@@ -1,4 +1,4 @@
-package main.java.datatype;
+package main.java;
 
 /**
  * Created by kenta on 16.02.2017.

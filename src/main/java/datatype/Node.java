@@ -1,5 +1,7 @@
 package main.java.datatype;
 
+import main.java.ShortestPath;
+
 import java.util.ArrayList;
 
 public class Node implements Comparable<Node> {
@@ -10,13 +12,13 @@ public class Node implements Comparable<Node> {
     private final ArrayList<Line> lines;
     private Node previous;
 
-    public Node(double code, String name, double time, ArrayList<Line> lines, Node previous) {
+    public Node(double code, String name, ArrayList<Line> lines) {
         this.code = code;
         this.name = name;
-        this.time = time;
         this.lines = lines;
-        this.previous = previous;
     }
+
+    //TODO change everything to protected
 
     public void setTime(double time) {
         this.time = time;
