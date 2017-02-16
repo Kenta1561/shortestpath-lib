@@ -6,6 +6,6 @@ package main.java;
  */
 public class ShortestPath {
 
-
+    protected static final NetworkManager networkManager = new NetworkManager();
 
 }
