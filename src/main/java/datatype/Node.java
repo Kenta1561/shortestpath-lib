@@ -18,8 +18,6 @@ public class Node implements Comparable<Node> {
         this.lines = lines;
     }
 
-    //TODO change everything to protected
-
     public void setTime(double time) {
         this.time = time;
     }
