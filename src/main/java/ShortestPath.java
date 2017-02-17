@@ -2,7 +2,6 @@ package main.java;
 
 import main.java.datatype.Line;
 import main.java.datatype.Node;
-import main.java.exception.UnregisteredItemException;
 
 import java.util.ArrayList;
 
