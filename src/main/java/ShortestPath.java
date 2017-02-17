@@ -17,17 +17,23 @@ import java.util.HashSet;
 public class ShortestPath {
 
     /**
-     * This ArrayList stores all nodes in a network
+     * This HashSet stores all nodes in a network
      */
     public final HashSet<Node> nodes;
 
     /**
-     * This ArrayList stores all lines in a network
+     * This HashSet stores all lines in a network
      */
     public final HashSet<Line> lines;
 
+    /**
+     * This HashSet stores all connections in a network
+     */
     public final HashSet<Connection> connections;
 
+    /**
+     * Instance of {@link NetworkManager} for background calculating
+     */
     private final NetworkManager networkManager;
 
     /**
@@ -41,7 +47,7 @@ public class ShortestPath {
     }
 
     /**
-     * Add a line in the network
+     * Register a line in the network
      * @param line Requires a {@link Line} object
      */
     public void registerLine(Line line) {
@@ -51,7 +57,7 @@ public class ShortestPath {
     }
 
     /**
-     * Add lines in the network
+     * Register lines in the network
      * @param lines Requires a HashSet with {@link Line} objects
      */
     public void registerLines(HashSet<Line> lines) {
@@ -61,7 +67,7 @@ public class ShortestPath {
     }
 
     /**
-     * Add a node in the network
+     * Register a node in the network
      * @param node Requires a {@link Node} object
      */
     public void registerNode(Node node) {
@@ -71,7 +77,7 @@ public class ShortestPath {
     }
 
     /**
-     * Add nodes in the network
+     * Register nodes in the network
      * @param nodes Requires a HashSet with {@link Node} objects
      */
     public void registerNodes(HashSet<Node> nodes) {
@@ -80,6 +86,10 @@ public class ShortestPath {
         }
     }
 
+    /**
+     * Register a connection in the network
+     * @param connection Requires a {@link Connection} object
+     */
     public void registerConnection(Connection connection) {
         if(!nodes.contains(connection.getFrom()) && !nodes.contains(connection.getTo())) {
             throw new ItemNotExistingException("One or both nodes included in this connection was/were not registered " +
@@ -91,26 +101,50 @@ public class ShortestPath {
         }
     }
 
+    /**
+     * Register connections in the network
+     * @param connections Requires a HashSet with {@link Connection} objects
+     */
     public void registerConnections(HashSet<Connection> connections) {
         for(Connection connection : connections) {
             registerConnection(connection);
         }
     }
 
+    /**
+     * Method for retrieving path form A to B in the most efficient way (Least line changes)
+     * @param from Requires the starting point
+     * @param to Requires the ending point
+     * @return Returns an ArrayList with {@link Path} objects representing the whole path
+     */
     public ArrayList<Path> getPath(Node from, Node to) {
         return null;
     }
 
+    /**
+     * Method for retrieving raw path from A to B as an ArrayList with {@link Node} objects
+     * @param from Requires the starting point
+     * @param to Requires the ending point
+     * @return Returns an ArrayList with {@link Node} objects representing the path as multiple {@link Node} objects
+     */
     public ArrayList<Node> getRawPath(Node from, Node to) {
         //Initialize nodes
         networkManager.initializeNodes(from);
         return null;
     }
 
+    /**
+     * Getter for HashSet of {@link Line} objects
+     * @return Returns lines HashSet
+     */
     HashSet<Line> getLines() {
         return lines;
     }
 
+    /**
+     * Getter for HashSet of {@link Node} objects
+     * @return Returns nodes HashSet
+     */
     HashSet<Node> getNodes() {
         return nodes;
     }
