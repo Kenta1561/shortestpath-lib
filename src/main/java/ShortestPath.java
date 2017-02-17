@@ -1,9 +1,13 @@
 package main.java;
 
+import main.java.datatype.Connection;
 import main.java.datatype.Line;
 import main.java.datatype.Node;
+import main.java.datatype.Path;
 import main.java.exception.ItemDuplicationException;
+import main.java.exception.ItemNotExistingException;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
@@ -22,12 +26,18 @@ public class ShortestPath {
      */
     public final HashSet<Line> lines;
 
+    public final HashSet<Connection> connections;
+
+    private final NetworkManager networkManager;
+
     /**
      * Basic constructor, initializes both ArrayLists
      */
     public ShortestPath() {
         nodes = new HashSet<>();
         lines = new HashSet<>();
+        connections = new HashSet<>();
+        networkManager = new NetworkManager(this);
     }
 
     /**
@@ -46,10 +56,7 @@ public class ShortestPath {
      */
     public void registerLines(HashSet<Line> lines) {
         for(Line line : lines) {
-            if(!this.lines.add(line)) {
-                throw new ItemDuplicationException("You have already registered one or more instances of Line in the " +
-                        "given HashSet.");
-            }
+            registerLine(line);
         }
     }
 
@@ -69,11 +76,43 @@ public class ShortestPath {
      */
     public void registerNodes(HashSet<Node> nodes) {
         for(Node node : nodes) {
-            if(!this.nodes.add(node)) {
-                throw new ItemDuplicationException("You have already registered one or more instances of Node in the " +
-                        "given HashSet.");
+            registerNode(node);
+        }
+    }
+
+    public void registerConnection(Connection connection) {
+        if(!nodes.contains(connection.getFrom()) && !nodes.contains(connection.getTo())) {
+            throw new ItemNotExistingException("One or both nodes included in this connection was/were not registered " +
+                    "before. Please register all nodes before you register connections.");
+        } else {
+            if(!connections.add(connection)) {
+                throw new ItemDuplicationException("You have already registered this instance of Connection.");
             }
         }
+    }
+
+    public void registerConnections(HashSet<Connection> connections) {
+        for(Connection connection : connections) {
+            registerConnection(connection);
+        }
+    }
+
+    public ArrayList<Path> getPath(Node from, Node to) {
+        return null;
+    }
+
+    public ArrayList<Node> getRawPath(Node from, Node to) {
+        //Initialize nodes
+        networkManager.initializeNodes(from);
+        return null;
+    }
+
+    HashSet<Line> getLines() {
+        return lines;
+    }
+
+    HashSet<Node> getNodes() {
+        return nodes;
     }
 
 }
