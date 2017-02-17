@@ -20,41 +20,12 @@ public class ShortestPath {
         lines = new ArrayList<>();
     }
 
-    public void registerLine(Line line) {
-        lines.add(line);
-    }
+    public void addLine(Line line) {}
 
-    public void registerLines(ArrayList<Line> lines) {
-        this.lines.addAll(lines);
-    }
+    public void addLines(ArrayList<Line> lines) {}
 
-    public void registerNode(double code, String name, ArrayList<Line> nodeLines) {
-        if(lineInstanceNotExisting(nodeLines)) {
-            throw new UnregisteredItemException("A line/multiple lines that were not registered before " +
-                    "was/were registered. Please register all lines before you register nodes.");
-        } else {
-            nodes.add(new Node(code, name, nodeLines));
-        }
-    }
+    public void addNode(Node node) {}
 
-    public void registerConnection(Node from, Node to, double rawTime) {
-        if(nodeInstanceNotExisting(from) || nodeInstanceNotExisting(to)) {
-            throw new UnregisteredItemException("A node/multiple nodes that were not registered before " +
-                    "was/were registered. Please register all nodes before you register connections.");
-        }
-    }
-
-    private boolean lineInstanceNotExisting(ArrayList<Line> nodeLines) {
-        for(Line nodeLine : nodeLines) {
-            if(!lines.contains(nodeLine)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    private boolean nodeInstanceNotExisting(Node connectionNode) {
-        return !nodes.contains(connectionNode);
-    }
+    public void addNodes(ArrayList<Node> nodes) {}
 
 }
