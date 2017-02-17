@@ -37,7 +37,7 @@ public class ShortestPath {
     private final NetworkManager networkManager;
 
     /**
-     * Basic constructor, initializes both ArrayLists
+     * Basic constructor, initializes HashSets
      */
     public ShortestPath() {
         nodes = new HashSet<>();
