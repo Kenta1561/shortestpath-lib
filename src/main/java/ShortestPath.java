@@ -4,7 +4,6 @@ import main.java.datatype.Connection;
 import main.java.datatype.Line;
 import main.java.datatype.Node;
 import main.java.datatype.Path;
-import main.java.exception.InvalidNetworkException;
 import main.java.exception.ItemDuplicationException;
 import main.java.exception.ItemNotExistingException;
 
@@ -37,9 +36,9 @@ public class ShortestPath {
     public final HashSet<Connection> connections;
 
     /**
-     * Instance of {@link NetworkManager} for background calculating
+     * Instance of {@link PathCreator} for background calculating
      */
-    private final NetworkManager networkManager;
+    private final PathCreator pathCreator;
 
     /**
      * Basic constructor, initializes HashSets
@@ -48,7 +47,7 @@ public class ShortestPath {
         nodes = new HashSet<>();
         lines = new HashSet<>();
         connections = new HashSet<>();
-        networkManager = new NetworkManager(this);
+        pathCreator = new PathCreator(this);
     }
 
     /**
@@ -133,8 +132,8 @@ public class ShortestPath {
      * @return Returns an ArrayList with {@link Node} objects representing the path as multiple {@link Node} objects
      */
     public ArrayList<Node> getRawPath(Node from, Node to) {
-        //Passing request to NetworkManager class as it is responsible for background calculation
-        return networkManager.getRawPath(from, to);
+        //Passing request to PathCreator class as it is responsible for background calculation
+        return pathCreator.getRawPath(from, to);
     }
 
     /**

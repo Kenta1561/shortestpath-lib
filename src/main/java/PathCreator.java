@@ -13,7 +13,7 @@ import java.util.HashSet;
 /**
  * To be extended: Manages network behind ShortestPath class
  */
-class NetworkManager {
+class PathCreator {
 
     private final ShortestPath shortestPath;
     private final Queue queue;
@@ -22,7 +22,7 @@ class NetworkManager {
     private HashSet<Node> nodes;
     private HashSet<Connection> connections;
 
-    NetworkManager(ShortestPath shortestPath) {
+    PathCreator(ShortestPath shortestPath) {
         this.shortestPath = shortestPath;
         queue = new Queue();
     }
