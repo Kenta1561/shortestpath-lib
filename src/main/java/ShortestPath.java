@@ -4,6 +4,7 @@ import main.java.datatype.Connection;
 import main.java.datatype.Line;
 import main.java.datatype.Node;
 import main.java.datatype.Path;
+import main.java.exception.InvalidNetworkException;
 import main.java.exception.ItemDuplicationException;
 import main.java.exception.ItemNotExistingException;
 
@@ -15,6 +16,10 @@ import java.util.HashSet;
  * required for registering all the required components to calculate a path.
  */
 public class ShortestPath {
+
+    //TODO add option to add reversed connection at the same time with boolean parameter "addReverseConnection"
+
+    //TODO attention: connection works only in one direction
 
     /**
      * This HashSet stores all nodes in a network
@@ -128,9 +133,8 @@ public class ShortestPath {
      * @return Returns an ArrayList with {@link Node} objects representing the path as multiple {@link Node} objects
      */
     public ArrayList<Node> getRawPath(Node from, Node to) {
-        //Initialize nodes
-        networkManager.initializeNodes(from);
-        return null;
+        //Passing request to NetworkManager class as it is responsible for background calculation
+        return networkManager.getRawPath(from, to);
     }
 
     /**
@@ -147,6 +151,10 @@ public class ShortestPath {
      */
     HashSet<Node> getNodes() {
         return nodes;
+    }
+
+    HashSet<Connection> getConnections() {
+        return connections;
     }
 
 }

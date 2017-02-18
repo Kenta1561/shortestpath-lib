@@ -12,14 +12,22 @@ public class Node implements Comparable<Node> {
     private final ArrayList<Line> lines;
     private Node previous;
 
+    private boolean validated = false;
+
     public Node(double code, String name, ArrayList<Line> lines) {
         this.code = code;
         this.name = name;
         this.lines = lines;
     }
 
+    //TODO add feature to prevent no lines/null reference
+
     public void setTime(double time) {
         this.time = time;
+    }
+
+    public void validate() {
+        validated = true;
     }
 
     public void setPrevious(Node previous) {
@@ -44,6 +52,10 @@ public class Node implements Comparable<Node> {
 
     public Node getPrevious() {
         return previous;
+    }
+
+    public boolean isValidated() {
+        return validated;
     }
 
     @Override

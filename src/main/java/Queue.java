@@ -30,7 +30,7 @@ class Queue {
         return queue.size();
     }
 
-    private void sortQueue() {
+    void sortQueue() {
         queue.sort(Node::compareTo);
     }
 
