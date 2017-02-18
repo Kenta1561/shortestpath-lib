@@ -1,10 +1,14 @@
 package main.java.exception;
 
 /**
- * Created by kenta on 17.02.2017.
+ * This exception gets thrown when an object contains an object which was not registered before.
  */
 public class ItemNotExistingException extends RuntimeException {
 
+    /**
+     * Constructor with String as exception message
+     * @param message Requires a String as the message
+     */
     public ItemNotExistingException(String message) {
         super(message);
     }
