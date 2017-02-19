@@ -1,11 +1,11 @@
 package main.java;
 
 import main.java.datatype.Connection;
-import main.java.datatype.Line;
 import main.java.datatype.Node;
 import main.java.datatype.Path;
 import main.java.exception.ItemDuplicationException;
 import main.java.exception.ItemNotExistingException;
+import main.java.exception.MultipleRegistrationException;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -16,19 +16,10 @@ import java.util.HashSet;
  */
 public class ShortestPath {
 
-    //TODO add option to add reversed connection at the same time with boolean parameter "addReverseConnection"
-
-    //TODO attention: connection works only in one direction
-
     /**
      * This HashSet stores all nodes in a network
      */
     public final HashSet<Node> nodes;
-
-    /**
-     * This HashSet stores all lines in a network
-     */
-    public final HashSet<Line> lines;
 
     /**
      * This HashSet stores all connections in a network
@@ -45,29 +36,8 @@ public class ShortestPath {
      */
     public ShortestPath() {
         nodes = new HashSet<>();
-        lines = new HashSet<>();
         connections = new HashSet<>();
         pathCreator = new PathCreator(this);
-    }
-
-    /**
-     * Register a line in the network
-     * @param line Requires a {@link Line} object
-     */
-    public void registerLine(Line line) {
-        if(!lines.add(line)) {
-            throw new ItemDuplicationException("You have already registered this instance of Line.");
-        }
-    }
-
-    /**
-     * Register lines in the network
-     * @param lines Requires a HashSet with {@link Line} objects
-     */
-    public void registerLines(HashSet<Line> lines) {
-        for(Line line : lines) {
-            registerLine(line);
-        }
     }
 
     /**
@@ -84,6 +54,7 @@ public class ShortestPath {
      * Register nodes in the network
      * @param nodes Requires a HashSet with {@link Node} objects
      */
+    @SuppressWarnings("unused")
     public void registerNodes(HashSet<Node> nodes) {
         for(Node node : nodes) {
             registerNode(node);
@@ -93,25 +64,59 @@ public class ShortestPath {
     /**
      * Register a connection in the network
      * @param connection Requires a {@link Connection} object
+     * @param addReverseConnection Set true if the reversed connection should be added as well
      */
-    public void registerConnection(Connection connection) {
+    public void registerConnection(Connection connection, boolean addReverseConnection) {
         if(!nodes.contains(connection.getFrom()) && !nodes.contains(connection.getTo())) {
             throw new ItemNotExistingException("One or both nodes included in this connection was/were not registered " +
                     "before. Please register all nodes before you register connections.");
         } else {
-            if(!connections.add(connection)) {
-                throw new ItemDuplicationException("You have already registered this instance of Connection.");
+            if(!isDuplicateConnection(connection)) {
+                if(!connections.add(connection)) {
+                    throw new ItemDuplicationException("You have already registered this instance of Connection.");
+                } else {
+                    addReverseConnection(connection);
+                }
+            } else {
+                throw new MultipleRegistrationException("You have already registered a connection with the same origin " +
+                        "and destination.");
             }
         }
     }
 
     /**
+     * Adds a connection with the origin and destination being reversed.
+     * Note: No ItemDuplicationException will be thrown because a new instance is created here
+     * @param originalConnection Requires the original connection to be reversed
+     */
+    private void addReverseConnection(Connection originalConnection) {
+        Connection reverseConnection = new Connection(originalConnection.getTo(), originalConnection.getFrom(),
+                originalConnection.getRawTime());
+        connections.add(reverseConnection);
+    }
+
+    /**
+     * This method checks whether a connection with the same from and to node already exists.
+     * It does NOT check if the same instance of Connection exists.
+     */
+    private boolean isDuplicateConnection(Connection checkingConnection) {
+        for(Connection connection : connections) {
+            if((connection.getFrom() == checkingConnection.getFrom()) && (connection.getTo() == checkingConnection.getTo())) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
      * Register connections in the network
      * @param connections Requires a HashSet with {@link Connection} objects
+     * @param addReverseConnections Set true if for all connection a reversed connection should be added as well
      */
-    public void registerConnections(HashSet<Connection> connections) {
+    @SuppressWarnings("unused")
+    public void registerConnections(HashSet<Connection> connections, boolean addReverseConnections) {
         for(Connection connection : connections) {
-            registerConnection(connection);
+            registerConnection(connection, addReverseConnections);
         }
     }
 
@@ -121,6 +126,7 @@ public class ShortestPath {
      * @param to Requires the ending point
      * @return Returns an ArrayList with {@link Path} objects representing the whole path
      */
+    @SuppressWarnings("unused")
     public ArrayList<Path> getPath(Node from, Node to) {
         return null;
     }
@@ -131,17 +137,10 @@ public class ShortestPath {
      * @param to Requires the ending point
      * @return Returns an ArrayList with {@link Node} objects representing the path as multiple {@link Node} objects
      */
+    @SuppressWarnings("unused")
     public ArrayList<Node> getRawPath(Node from, Node to) {
         //Passing request to PathCreator class as it is responsible for background calculation
         return pathCreator.getRawPath(from, to);
-    }
-
-    /**
-     * Getter for HashSet of {@link Line} objects
-     * @return Returns lines HashSet
-     */
-    HashSet<Line> getLines() {
-        return lines;
     }
 
     /**
