@@ -140,7 +140,7 @@ class PathCreator {
                 }
             }
             //Add path
-            path.add(new Path(maxTrailLine, rawPath.get(maxTrailSize - 1)));
+            path.add(new Path(maxTrailLine, rawPath.get(0), rawPath.get(maxTrailSize - 1)));
             //Removal of unnecessary nodes in raw path as they are already checked
             for(int x = 0; x < maxTrailSize - 1; x++) {
                 //Remove first node
