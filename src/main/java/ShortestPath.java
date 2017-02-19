@@ -151,6 +151,10 @@ public class ShortestPath {
         return nodes;
     }
 
+    /**
+     * Getter for HashSet of {@link Connection} objects
+     * @return Returns connections HashSet
+     */
     HashSet<Connection> getConnections() {
         return connections;
     }
