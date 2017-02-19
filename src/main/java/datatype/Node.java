@@ -2,18 +2,18 @@ package main.java.datatype;
 
 import main.java.exception.InvalidNetworkException;
 
-import java.util.ArrayList;
+import java.util.HashSet;
 
 public class Node implements Comparable<Node> {
 
     private final String name;
     private double time;
-    private final ArrayList<Line> lines;
+    private final HashSet<String> lines;
     private Node previous;
 
     private boolean validatedConnectivity = false;
 
-    public Node(String name, ArrayList<Line> lines) {
+    public Node(String name, HashSet<String> lines) {
         this.name = name;
         if((lines != null) && (!lines.isEmpty())) {
             this.lines = lines;
@@ -42,7 +42,7 @@ public class Node implements Comparable<Node> {
         return time;
     }
 
-    public ArrayList<Line> getLines() {
+    public HashSet<String> getLines() {
         return lines;
     }
 
