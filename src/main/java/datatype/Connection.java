@@ -1,6 +1,7 @@
 package main.java.datatype;
 
 /**
+ * @author Kenta1561
  * Objects of this class represent a connection from one node to another.
  */
 public class Connection {

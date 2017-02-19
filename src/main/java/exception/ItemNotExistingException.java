@@ -1,6 +1,7 @@
 package main.java.exception;
 
 /**
+ * @author Kenta1561
  * This exception gets thrown when an object contains an object which was not registered before.
  */
 public class ItemNotExistingException extends RuntimeException {

@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
+ * @author Kenta1561
  * This is the main class of this library. An instance of this class is
  * required for registering all the required components to calculate a path.
  */

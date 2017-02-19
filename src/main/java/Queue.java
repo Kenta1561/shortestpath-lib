@@ -5,6 +5,7 @@ import main.java.datatype.Node;
 import java.util.ArrayList;
 
 /**
+ * @author Kenta1561
  * This class manages the queue that stores nodes awaiting for being processed.
  */
 class Queue {
