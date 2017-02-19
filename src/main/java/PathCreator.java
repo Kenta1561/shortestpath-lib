@@ -18,7 +18,6 @@ class PathCreator {
     private final ShortestPath shortestPath;
     private final Queue queue;
 
-    private HashSet<Line> lines;
     private HashSet<Node> nodes;
     private HashSet<Connection> connections;
 
@@ -28,7 +27,6 @@ class PathCreator {
     }
 
     private void setData() {
-        lines = shortestPath.getLines();
         nodes = shortestPath.getNodes();
         connections = shortestPath.getConnections();
     }
@@ -44,9 +42,9 @@ class PathCreator {
         }
     }
 
-    private boolean validationCheck() {
+    private boolean connectivityValidationCheck() {
         for(Node node : nodes) {
-            if(!node.isValidated()) {
+            if(!node.isConnectivityValidated()) {
                 return false;
             }
         }
@@ -55,10 +53,12 @@ class PathCreator {
 
     ArrayList<Node> getRawPath(Node from, Node to) {
         ArrayList<Node> rawPath = new ArrayList<>();    //ArrayList for returning
-        if(!validationCheck()) {
+        if(!connectivityValidationCheck()) {
             throw new InvalidNetworkException("The provided network is invalid. One or multiple nodes are not connected " +
                     "to the rest of the network. Please make sure that all nodes have at least one connection.");
         } else {
+            //Set data
+            setData();
             //Initialize all nodes
             initializeNodes(from);
             //Inifinite loop but definitely breakable as network is already validated (safe infinite loop ;D)
@@ -154,10 +154,6 @@ class PathCreator {
         }
         //Return path
         return path;
-    }
-
-    Queue getQueue() {
-        return queue;
     }
 
 }
