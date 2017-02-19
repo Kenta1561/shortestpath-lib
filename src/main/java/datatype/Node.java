@@ -11,7 +11,7 @@ public class Node implements Comparable<Node> {
     private final ArrayList<Line> lines;
     private Node previous;
 
-    private boolean validated = false;
+    private boolean validatedConnectivity = false;
 
     public Node(String name, ArrayList<Line> lines) {
         this.name = name;
@@ -26,8 +26,8 @@ public class Node implements Comparable<Node> {
         this.time = time;
     }
 
-    void validate() {
-        validated = true;
+    void validateConnectivity() {
+        validatedConnectivity = true;
     }
 
     public void setPrevious(Node previous) {
@@ -50,8 +50,8 @@ public class Node implements Comparable<Node> {
         return previous;
     }
 
-    public boolean isValidated() {
-        return validated;
+    public boolean isConnectivityValidated() {
+        return validatedConnectivity;
     }
 
     @Override
