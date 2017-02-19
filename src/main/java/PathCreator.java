@@ -11,26 +11,53 @@ import java.util.Collections;
 import java.util.HashSet;
 
 /**
- * To be extended: Manages network behind ShortestPath class
+ * @author Kenta1561
+ * This class calculates the path from point A to B.
  */
 class PathCreator {
 
+    /**
+     * Requires an instance of the main class
+     */
     private final ShortestPath shortestPath;
+
+    /**
+     * Requires an instance of queue class
+     */
     private final Queue queue;
 
+    /**
+     * This HashSet stores all registered nodes
+     */
     private HashSet<Node> nodes;
+
+    /**
+     * This HashSet stores all registered connections
+     */
     private HashSet<Connection> connections;
 
+    /**
+     * Basic constructor with a parameter
+     * @param shortestPath Requires the instance of the main class
+     */
     PathCreator(ShortestPath shortestPath) {
         this.shortestPath = shortestPath;
         queue = new Queue();
     }
 
+    /**
+     * Initializes private HashSets of this class by using getter methods in main class
+     */
     private void setData() {
         nodes = shortestPath.getNodes();
         connections = shortestPath.getConnections();
     }
 
+    /**
+     * Initializes all nodes by setting the travel time from the origin node and by adding them
+     * to the queue
+     * @param from Requires the starting point
+     */
     private void initializeNodes(Node from) {
         for(Node node : nodes) {
             if(node.equals(from)) {
@@ -42,6 +69,10 @@ class PathCreator {
         }
     }
 
+    /**
+     * Checks if the connectivity of every single node is validated
+     * @return
+     */
     private boolean connectivityValidationCheck() {
         for(Node node : nodes) {
             if(!node.isConnectivityValidated()) {
@@ -51,6 +82,12 @@ class PathCreator {
         return true;
     }
 
+    /**
+     * Calculates the raw path from point A to B
+     * @param from Requires the origin node
+     * @param to Requires the destination node
+     * @return Returns the raw path in an ArrayList of nodes
+     */
     ArrayList<Node> getRawPath(Node from, Node to) {
         ArrayList<Node> rawPath = new ArrayList<>();    //ArrayList for returning
         if(!connectivityValidationCheck()) {
@@ -100,6 +137,11 @@ class PathCreator {
         return rawPath;
     }
 
+    /**
+     * Searches for connections from the given node
+     * @param node Requires a node
+     * @return Returns an ArrayList with connections
+     */
     private ArrayList<Connection> getConnections(Node node) {
         ArrayList<Connection> nodeConnections = new ArrayList<>();  //ArrayList for returning
         for(Connection connection : connections) {  //Loop through all provided connections
@@ -110,6 +152,12 @@ class PathCreator {
         return nodeConnections; //Return ArrayList
     }
 
+    /**
+     * Calculates a path with the least line changes
+     * @param from Requires the origin node
+     * @param to Requires the destination node
+     * @return Returns the path as an ArrayList with {@link Path} objects
+     */
     ArrayList<Path> getPath(Node from, Node to) {
         ArrayList<Path> path = new ArrayList<>();
         ArrayList<Node> rawPath = getRawPath(from, to);
