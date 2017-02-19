@@ -18,14 +18,19 @@ import java.util.HashSet;
 public class ShortestPath {
 
     /**
+     * This HashSet stores all line in a network as String
+     */
+    private final HashSet<String> lines;
+
+    /**
      * This HashSet stores all nodes in a network
      */
-    public final HashSet<Node> nodes;
+    private final HashSet<Node> nodes;
 
     /**
      * This HashSet stores all connections in a network
      */
-    public final HashSet<Connection> connections;
+    private final HashSet<Connection> connections;
 
     /**
      * Instance of {@link PathCreator} for background calculating
@@ -36,9 +41,24 @@ public class ShortestPath {
      * Basic constructor, initializes HashSets
      */
     public ShortestPath() {
+        //HashSets
+        lines = new HashSet<>();
         nodes = new HashSet<>();
         connections = new HashSet<>();
+        //Classes
         pathCreator = new PathCreator(this);
+    }
+
+    public void registerLine(String line) {
+        if(!lines.add(line)) {
+            throw new ItemDuplicationException("You have already registered a line with the same name.");
+        }
+    }
+
+    public void registerLines(HashSet<String> lines) {
+        for(String line : lines) {
+            registerLine(line);
+        }
     }
 
     /**
@@ -46,9 +66,28 @@ public class ShortestPath {
      * @param node Requires a {@link Node} object
      */
     public void registerNode(Node node) {
-        if(!nodes.add(node)) {
-            throw new ItemDuplicationException("You have already registered this instance of Node.");
+        if(areAllLinesRegistered(node.getLines())) {
+            if(!nodes.add(node)) {
+                throw new ItemDuplicationException("You have already registered this instance of Node.");
+            }
+        } else {
+            throw new ItemNotExistingException("One or multiple lines included in this node was/were not registered before. " +
+                    "Please register all nodes before you register nodes");
         }
+    }
+
+    /**
+     * Checks wheter all lines in the HashSet were registered before
+     * @param lines Requires a HashSet with lines as Strings
+     * @return Returns true when all lines were registered before
+     */
+    private boolean areAllLinesRegistered(HashSet<String> lines) {
+        for(String line : lines) {
+            if(!this.lines.contains(line)) {
+                return false;
+            }
+        }
+        return true;
     }
 
     /**
@@ -65,7 +104,7 @@ public class ShortestPath {
     /**
      * Register a connection in the network
      * @param connection Requires a {@link Connection} object
-     * @param addReverseConnection Set true if the reversed connection should be added as well
+     * @param addReverseConnection Set true if the reversed connection with the same travel timeshould be added as well
      */
     public void registerConnection(Connection connection, boolean addReverseConnection) {
         if(!nodes.contains(connection.getFrom()) && !nodes.contains(connection.getTo())) {
@@ -76,7 +115,9 @@ public class ShortestPath {
                 if(!connections.add(connection)) {
                     throw new ItemDuplicationException("You have already registered this instance of Connection.");
                 } else {
-                    addReverseConnection(connection);
+                    if(addReverseConnection) {
+                        addReverseConnection(connection);
+                    }
                 }
             } else {
                 throw new MultipleRegistrationException("You have already registered a connection with the same origin " +
@@ -112,7 +153,8 @@ public class ShortestPath {
     /**
      * Register connections in the network
      * @param connections Requires a HashSet with {@link Connection} objects
-     * @param addReverseConnections Set true if for all connection a reversed connection should be added as well
+     * @param addReverseConnections Set true if for all connection a reversed connection with
+     *                              the same travel time should be added as well
      */
     @SuppressWarnings("unused")
     public void registerConnections(HashSet<Connection> connections, boolean addReverseConnections) {
