@@ -1,7 +1,6 @@
 package main.java;
 
 import main.java.datatype.Connection;
-import main.java.datatype.Line;
 import main.java.datatype.Node;
 import main.java.datatype.Path;
 import main.java.exception.InvalidNetworkException;
@@ -169,9 +168,9 @@ class PathCreator {
             //Stores the length of the longest trail
             int maxTrailSize = 0;
             //Stores the line name of the longest trail
-            Line maxTrailLine = null;
+            String maxTrailLine = null;
             //Loop through all lines of the node that are being served by
-            for(Line line : currentNode.getLines()) {
+            for(String line : currentNode.getLines()) {
                 //Temporal trail size counter
                 int trailSizeCounter = 0;
                 for(Node node : rawPath) {
