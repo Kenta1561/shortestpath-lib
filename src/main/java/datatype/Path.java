@@ -7,9 +7,9 @@ package main.java.datatype;
 public class Path {
 
     /**
-     * The Line that must be taken
+     * The line that must be taken
      */
-    private final Line line;
+    private final String line;
 
     /**
      * The origin node
@@ -27,7 +27,7 @@ public class Path {
      * @param from Requires the origin node
      * @param to Requires the destination node
      */
-    public Path(Line line, Node from, Node to) {
+    public Path(String line, Node from, Node to) {
         this.line = line;
         this.from = from;
         this.to = to;
@@ -37,7 +37,7 @@ public class Path {
      * Getter for the line that must be taken
      * @return Returns the line
      */
-    public Line getLine() {
+    public String getLine() {
         return line;
     }
 
