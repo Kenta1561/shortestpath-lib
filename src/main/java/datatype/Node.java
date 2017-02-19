@@ -22,8 +22,6 @@ public class Node implements Comparable<Node> {
         }
     }
 
-    //TODO add feature to prevent no lines/null reference
-
     public void setTime(double time) {
         this.time = time;
     }
