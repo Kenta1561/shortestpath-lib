@@ -1,12 +1,11 @@
 package main.java.datatype;
 
-import main.java.ShortestPath;
+import main.java.exception.InvalidNetworkException;
 
 import java.util.ArrayList;
 
 public class Node implements Comparable<Node> {
 
-    private final double code;
     private final String name;
     private double time;
     private final ArrayList<Line> lines;
@@ -14,10 +13,13 @@ public class Node implements Comparable<Node> {
 
     private boolean validated = false;
 
-    public Node(double code, String name, ArrayList<Line> lines) {
-        this.code = code;
+    public Node(String name, ArrayList<Line> lines) {
         this.name = name;
-        this.lines = lines;
+        if((lines != null) && (!lines.isEmpty())) {
+            this.lines = lines;
+        } else {
+            throw new InvalidNetworkException("This network is invalid. No lines existing for this node.");
+        }
     }
 
     //TODO add feature to prevent no lines/null reference
@@ -26,16 +28,12 @@ public class Node implements Comparable<Node> {
         this.time = time;
     }
 
-    public void validate() {
+    void validate() {
         validated = true;
     }
 
     public void setPrevious(Node previous) {
         this.previous = previous;
-    }
-
-    public double getCode() {
-        return code;
     }
 
     public String getName() {
