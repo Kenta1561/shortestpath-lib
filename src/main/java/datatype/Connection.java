@@ -10,7 +10,7 @@ public class Connection {
         this.from = from;
         this.to = to;
         this.rawTime = rawTime;
-        setValidation();
+        setConnectivityValidation();
     }
 
     public Node getFrom() {
@@ -25,9 +25,9 @@ public class Connection {
         return rawTime;
     }
 
-    private void setValidation() {
-        from.validate();
-        to.validate();
+    private void setConnectivityValidation() {
+        from.validateConnectivity();
+        to.validateConnectivity();
     }
 
 }
