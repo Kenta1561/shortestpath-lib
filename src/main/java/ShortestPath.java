@@ -171,7 +171,7 @@ public class ShortestPath {
      */
     @SuppressWarnings("unused")
     public ArrayList<Path> getPath(Node from, Node to) {
-        return null;
+        return pathCreator.getPath(from, to);
     }
 
     /**
