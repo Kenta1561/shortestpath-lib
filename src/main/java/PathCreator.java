@@ -70,7 +70,7 @@ class PathCreator {
 
     /**
      * Checks if the connectivity of every single node is validated
-     * @return
+     * @return Returns true if the connectivity is validated
      */
     private boolean connectivityValidationCheck() {
         for(Node node : nodes) {
