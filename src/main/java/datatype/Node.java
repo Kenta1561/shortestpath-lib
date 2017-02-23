@@ -66,7 +66,7 @@ public class Node implements Comparable<Node> {
 
     /**
      * Setter for the previous node
-     * @param previous
+     * @param previous Requires the previous {@link Node} object
      */
     public void setPrevious(Node previous) {
         this.previous = previous;
