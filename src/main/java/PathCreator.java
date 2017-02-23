@@ -60,9 +60,9 @@ class PathCreator {
     private void initializeNodes(Node from) {
         for(Node node : nodes) {
             if(node.equals(from)) {
-                node.setTime(Double.MAX_VALUE);
-            } else {
                 node.setTime(0.0);
+            } else {
+                node.setTime(Double.MAX_VALUE);
             }
             queue.addNode(node);
         }
@@ -89,42 +89,41 @@ class PathCreator {
      */
     ArrayList<Node> getRawPath(Node from, Node to) {
         ArrayList<Node> rawPath = new ArrayList<>();    //ArrayList for returning
+        setData();  //Set data
         if(!connectivityValidationCheck()) {
             throw new InvalidNetworkException("The provided network is invalid. One or multiple nodes are not connected " +
                     "to the rest of the network. Please make sure that all nodes have at least one connection.");
         } else {
-            //Set data
-            setData();
             //Initialize all nodes
             initializeNodes(from);
             //Inifinite loop but definitely breakable as network is already validated (safe infinite loop ;D)
             parentLoop: {
                 while(true) {
                     //Get the instance of the first node in queue
-                    Node currentNode = queue.getFirstNode();
+                    Node node = queue.getFirstNode();
                     //Get all connections of the first node
-                    ArrayList<Connection> currentConnections = getConnections(currentNode);
-                    for(Connection currentConnection : currentConnections) {
-                        Node currentDestination = currentConnection.getTo();
-                        if(currentDestination.equals(to)) {
+                    ArrayList<Connection> connections = getConnections(node);
+                    for(Connection connection : connections) {
+                        Node destination = connection.getTo();
+                        if(destination.equals(to)) {
                             //Add final destination to ArrayList
                             rawPath.add(to);
                             //Backtrack path
-                            while(currentNode.getPrevious() != null) {
-                                rawPath.add(currentNode.getPrevious());
-                                currentNode = currentNode.getPrevious();
+                            while(node.getPrevious() != null) {
+                                rawPath.add(node);
+                                node = node.getPrevious();
                             }
-                            //TODO Check: is it required to add start node as well? (to rawPath)
+                            rawPath.add(from);
                             break parentLoop;
                         } else {
                             //Check if it is necessary to update the distance
-                            if (currentDestination.getTime() > (currentNode.getTime() + currentConnection.getRawTime())) {
+                            if (destination.getTime() > (node.getTime() + connection.getRawTime())) {
                                 //Distance update
-                                currentDestination.setTime(currentNode.getTime() + currentConnection.getRawTime());
+                                destination.setTime(node.getTime() + connection.getRawTime());
                                 //Sort queue by distance (influenced by distance update)
                                 queue.sortQueue();
                                 //Set its previous node to current node
-                                currentDestination.setPrevious(currentNode);
+                                destination.setPrevious(node);
                             }
                         }
                     }
