@@ -49,12 +49,21 @@ public class ShortestPath {
         pathCreator = new PathCreator(this);
     }
 
+    /**
+     * Register a line in the network
+     * @param line Requires a String as the line name
+     */
     public void registerLine(String line) {
         if(!lines.add(line)) {
             throw new ItemDuplicationException("You have already registered a line with the same name.");
         }
     }
 
+    /**
+     * Register lines in the network
+     * @param lines Requires a HashSet with String objects as line names
+     */
+    @SuppressWarnings("unused")
     public void registerLines(HashSet<String> lines) {
         for(String line : lines) {
             registerLine(line);
