@@ -1,6 +1,6 @@
-package main.java.datatype;
+package de.kenta1561.shortestpath.main.java.datatype;
 
-import main.java.exception.InvalidNetworkException;
+import de.kenta1561.shortestpath.main.java.exception.InvalidNetworkException;
 
 import java.util.HashSet;
 

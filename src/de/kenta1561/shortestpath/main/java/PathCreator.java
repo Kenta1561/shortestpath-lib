@@ -1,9 +1,9 @@
-package main.java;
+package de.kenta1561.shortestpath.main.java;
 
-import main.java.datatype.Connection;
-import main.java.datatype.Node;
-import main.java.datatype.Path;
-import main.java.exception.InvalidNetworkException;
+import de.kenta1561.shortestpath.main.java.datatype.Connection;
+import de.kenta1561.shortestpath.main.java.datatype.Node;
+import de.kenta1561.shortestpath.main.java.datatype.Path;
+import de.kenta1561.shortestpath.main.java.exception.InvalidNetworkException;
 
 import java.util.ArrayList;
 import java.util.Collections;

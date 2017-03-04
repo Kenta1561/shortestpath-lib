@@ -1,6 +1,6 @@
-package main.java;
+package de.kenta1561.shortestpath.main.java;
 
-import main.java.datatype.Node;
+import de.kenta1561.shortestpath.main.java.datatype.Node;
 
 import java.util.ArrayList;
 

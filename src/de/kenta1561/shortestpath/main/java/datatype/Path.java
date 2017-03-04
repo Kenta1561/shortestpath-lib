@@ -1,4 +1,4 @@
-package main.java.datatype;
+package de.kenta1561.shortestpath.main.java.datatype;
 
 /**
  * @author Kenta1561

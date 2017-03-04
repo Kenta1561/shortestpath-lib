@@ -1,4 +1,4 @@
-package main.java.exception;
+package de.kenta1561.shortestpath.main.java.exception;
 
 /**
  * @author Kenta1561
